@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="formRestaurante :: head">
+  <meta charset="UTF-8">
+  <title>Buscar Restaurante</title>
+</head>
+<body class="d-flex flex-column min-vh-100">
+<nav th:replace="formRestaurante :: navbar"></nav>
+
+<div class="container mt-5">
+  <main class="flex-fill mb-5">
+    <h2 class="mb-4 text-center titulo-principal">¿Qué restaurante está buscando?</h2>
+
+    <!-- Mensaje de error -->
+    <div th:if="${error != null}" class="alert alert-danger text-center" role="alert">
+      <p th:text="${error}">Error al buscar restaurante</p>
+    </div>
+
+    <!-- Formulario para buscar por ID -->
+    <form method="get" th:action="@{/restaurante/buscar}" class="mb-4">
+      <div class="mb-3 col-md-4 mx-auto">
+        <label for="id" class="form-label">ID del restaurante:</label>
+        <input type="number" id="id" name="id" class="form-control" required>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn custom-button">Buscar</button>
+      </div>
+    </form>
+
+    <!-- Botón para ver todos los restaurantes -->
+    <form method="get" th:action="@{/restaurante/buscarTodos}" class="mb-4 text-center">
+      <button type="submit" class="btn btn-secondary">Mostrar todos los restaurantes</button>
+    </form>
+
+    <!-- Resultado de búsqueda individual -->
+    <div th:if="${restauranteBuscado != null}">
+      <div class="card mx-auto shadow" style="width: 22rem;">
+        <img th:src="${restauranteBuscado.imagen}" class="card-img-top" alt="Imagen del restaurante" style="height: 200px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title" th:text="${restauranteBuscado.nombre}">Nombre del restaurante</h5>
+          <p class="card-text" th:text="${restauranteBuscado.descripcion}">Descripción</p>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Ubicación:</strong> <span th:text="${restauranteBuscado.ubicacion}"></span></li>
+            <li class="list-group-item"><strong>Tipo:</strong> <span th:text="${restauranteBuscado.tipo}"></span></li>
+            <li class="list-group-item"><strong>Horarios:</strong> <span th:text="${restauranteBuscado.horarios}"></span></li>
+            <li class="list-group-item"><strong>Teléfono:</strong> <span th:text="${restauranteBuscado.telefono}"></span></li>
+            <li class="list-group-item"><strong>Sitio Web:</strong>
+              <a th:href="${restauranteBuscado.sitioWeb}" target="_blank" th:text="${restauranteBuscado.sitioWeb}">Sitio Web</a>
+            </li>
+            <li class="list-group-item"><strong>Puntuación:</strong> <span th:text="${restauranteBuscado.puntuacion}">0.0</span>/5</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de todos los restaurantes -->
+    <div th:if="${todosLosRestaurantes != null}">
+      <div class="d-flex flex-wrap justify-content-center gap-4">
+        <div th:each="restaurante : ${todosLosRestaurantes}" class="card shadow" style="width: 22rem;">
+          <img th:src="${restaurante.imagen}" class="card-img-top" alt="Imagen del restaurante" style="height: 200px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title" th:text="${restaurante.nombre}">Nombre del restaurante</h5>
+            <p class="card-text" th:text="${restaurante.descripcion}">Descripción</p>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><strong>Ubicación:</strong> <span th:text="${restaurante.ubicacion}"></span></li>
+              <li class="list-group-item"><strong>Tipo:</strong> <span th:text="${restaurante.tipo}"></span></li>
+              <li class="list-group-item"><strong>Horarios:</strong> <span th:text="${restaurante.horarios}"></span></li>
+              <li class="list-group-item"><strong>Teléfono:</strong> <span th:text="${restaurante.telefono}"></span></li>
+              <li class="list-group-item"><strong>Sitio Web:</strong>
+                <a th:href="${restaurante.sitioWeb}" target="_blank" th:text="${restaurante.sitioWeb}">Sitio Web</a>
+              </li>
+              <li class="list-group-item"><strong>Puntuación:</strong> <span th:text="${restaurante.puntuacion}">0.0</span>/5</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer th:replace="formRestaurante :: footer"></footer>
+<div th:replace="formRestaurante :: jsincludes"></div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="formRestaurante :: head">
+    <meta charset="UTF-8">
+    <title>Eliminar Restaurante</title>
+</head>
+<body class="d-flex flex-column min-vh-100">
+<nav th:replace="formRestaurante :: navbar"></nav>
+
+<div class="container mt-5">
+    <main class="flex-fill">
+        <h2 class="text-center fw-bold mb-4" style="color: #e83e8c;">¿Qué restaurante desea eliminar?</h2>
+
+        <div th:if="${param.eliminado}" class="alert alert-success text-center">¡El restaurante ha sido eliminado!</div>
+        <div th:if="${param.error}" class="alert alert-danger text-center">Error: Restaurante no encontrado.</div>
+
+        <div class="row justify-content-center gx-3 gy-4">
+            <div class="col-sm-6 col-md-4 col-lg-3" th:each="r : ${restaurantes}">
+                <div class="card h-100 d-flex flex-column shadow" style="min-height: 360px;">
+                    <img th:src="${r.imagen}" class="card-img-top" alt="Imagen del restaurante" style="height: 200px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title" th:text="${r.nombre}">Nombre del restaurante</h5>
+                        <p class="card-text mb-2">
+                            <strong>Ubicación:</strong> <span th:text="${r.ubicacion}"></span><br>
+                            <strong>Tipo:</strong> <span th:text="${r.tipo}"></span><br>
+                            <strong>Horarios:</strong> <span th:text="${r.horarios}"></span><br>
+                            <strong>Teléfono:</strong> <span th:text="${r.telefono}"></span>
+                        </p>
+                        <form th:action="@{/restaurante/delete}" method="post" class="mt-auto text-center">
+                            <input type="hidden" name="id" th:value="${r.id}" />
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<footer th:replace="formRestaurante :: footer" class="mt-5"></footer>
+<div th:replace="formRestaurante :: jsincludes"></div>
+</body>
+</html>
