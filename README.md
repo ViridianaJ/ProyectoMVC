@@ -1,6 +1,8 @@
 # ProyectoMVC
 Proyecto Spring MVC Restaurantes.
+
 Caracteristicas:
+
 Almacena información en la base de datos. 
 Front end con páginas web con la máquina de render Thymeleaf.
 Contiene vistas que realizan las operaciones CRUD
